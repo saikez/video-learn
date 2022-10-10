@@ -3,3 +3,22 @@
 </h1>
 
 <iframe src="<%= @lesson.video_link %>"></iframe>
+
+<div id="comment-form">
+  <%= form_for([@lesson, Comment.new]) do |f| %>
+    <%= f.label 'Add a comment' %><br />
+    <%= f.text_area :body, id: 'comment-form-body' %><br />
+
+    <%= f.submit %>
+  <% end %>
+</div>
+
+<br />
+
+<div id="comments">
+  <% @lesson.comments.order("created_at DESC").each do |comment| %>
+    <%= comment.user.email %> commented at <%= comment.created_at %><br />
+    <%= comment.body %><br />
+    <br />
+  <% end %>
+</div>
